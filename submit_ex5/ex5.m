@@ -220,20 +220,24 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 
+% ====================================================================
+% ====================================================================
+% ====================================================================
+
+
+
+% Optional (ungraded) exercise
+
 % compute test error for lambda = 3 (see above)
 test_err = linearRegCostFunction(X_poly_test, ytest, theta, 0);
 fprintf('Test error for lambda=3 is  %f  \n', test_err);
 
 
 
-
-
-
-% ungraded version
+% Optional (ungraded) exercise: Plotting learning curves with randomly selected examples
 lambda = 0.01;
 m = size(X_poly, 1);
 mval = size(X_poly_val, 1);
-% select randomly i numbers from X
 n_rnd = 20;
 error_train = zeros(m, 1);
 error_val = zeros(m, 1);
@@ -241,12 +245,14 @@ for i = 1:m
     error_train_rnd = 0;
     error_val_rnd = 0;
     for j = 1:n_rnd
-        indxs = randi(m, i, 1);
+        % select randomly i numbers from X
+	indxs = randi(m, i, 1);
         Xrand = X_poly(indxs, :);
         yrand = y(indxs, :);
         indxs = randi(mval, i, 1);
         Xvalrand = X_poly_val(indxs, :);
         yvalrand = yval(indxs, :);
+	
         [theta] = trainLinearReg(Xrand, yrand, lambda);
         [J grad] = linearRegCostFunction(Xrand, yrand, theta, 0);
         error_train_rnd = error_train_rnd + J;
